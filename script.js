@@ -1,19 +1,20 @@
+//Global vars
 let userName = "test";
 let passWord = "1234";
 
+//Functions
 function setLocalStorage () {
-    localStorageIsSet = true;
     localStorage.setItem("test","1234");
 }
 
-function loginView (){
-let loginView = document.getElementById('view');
+function loggedInView (){
+let loggedInView = document.getElementById('view');
 let logoutBtn = document.createElement('button');
 logoutBtn.textContent = "Logga ut";
 logoutBtn.addEventListener('click',logOut);
-loginView.innerHTML="<h1>Grattis du är nu inloggad</h1>";
-loginView.appendChild(logoutBtn);
-document.body.appendChild(loginView);
+loggedInView.innerHTML="<h1>Grattis du är nu inloggad</h1>";
+loggedInView.appendChild(logoutBtn);
+document.body.appendChild(loggedInView);
 }
 
 function errorView(){
@@ -24,8 +25,8 @@ document.body.appendChild(errorView);
 
 function homeView(){
     let homeView = document.getElementById('view');
-    homeView.innerHTML = "<h1>Välkommen</h1> <br/>"
-    "<p>Vänligen ange användarnamn och lösenord för att logga in</p>";
+    homeView.innerHTML = "<h1>Välkommen</h1> <br/>";
+    homeView.innerHTML += "<p>Vänligen ange användarnamn och lösenord för att logga in</p>";
     document.body.appendChild(homeView);
 }
 function logOut (){
@@ -34,13 +35,11 @@ function logOut (){
 }
 
 function userIsLoggedIn () {
-    console.log("userIsLoggedIn");
     for (let i = 0; i < localStorage.length; i++) {
             let lsUserName = localStorage.key(i);
-            console.log(lsUserName);
             let lsPassWord = localStorage.getItem(lsUserName);
             if (lsUserName == userName && lsPassWord == passWord){
-                loginView();
+                loggedInView();
             }
         }
 }
@@ -50,14 +49,14 @@ function validate(){
     let inpPassWord = document.getElementById("password").value;
     if (inpUserName == userName && inpPassWord == passWord){
         setLocalStorage();
-        loginView();
+        loggedInView();
     }
     else{
         errorView();
     }
 }
-
-if (localStorage.lenght) {
+//Main starts here
+if (localStorage.length) {
     userIsLoggedIn();
 }
 else
